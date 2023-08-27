@@ -11,18 +11,20 @@ Vagrant.configure("2") do |config|
       vb.cpus = 2
     end
   
-    # Configura uma rede privada usando DHCP
-    config.vm.network "private_network", ip: "192.168.56.4",
+    # Configura uma rede privada usando fixo
+    config.vm.network "private_network", ip: "192.168.56.12",
     virtualbox__internet:"eth0";
+    #configuta uma rede de ip publico DHCP
+    config.vm.network "public_network",
+    use_dhcp_assigned_default_route: true
   
     # Configura uma pasta sincronizada
     config.vm.synced_folder "./shared_folder", "/var/www/html"
     # Configura um redirecionamento de porta
-    config.vm.network "forwarded_port", guest: 80, host: 8080
+    config.vm.network "forwarded_port",       apt-get update
+    apt-get install -y apache2guest: 80, host: 8080
   
     # Provisão usando um shell script
     config.vm.provision "shell", inline: <<-SHELL
-      apt-get update
-      apt-get install -y apache2
     SHELL
   end
