@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/html":{"guestpath":"/var/www/html","hostpath":"/home/aluno/proj_lab_redes/VM1/shared_folder","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/aluno/proj_lab_redes/VM1","disabled":false,"__vagrantfile":true}}}
