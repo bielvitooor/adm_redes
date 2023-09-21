@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/focal64"
     # Especifica o provedor (VirtualBox neste exemplo)
     config.vm.provider "virtualbox" do |vb|
-      vb.name="V1"
+      vb.name=" VM01"
      # vb.memory = 2048
      # vb.cpus = 2
     end
@@ -18,14 +18,21 @@ Vagrant.configure("2") do |config|
     # Configura uma pasta sincronizada
     config.vm.synced_folder "./shared_folder", "/var/www/html"
     # Configura um redirecionamento de porta
-    #config.vm.network "forwarded_port", guest: 80, host: 8080
+    config.vm.network "forwarded_port", guest: 80, host: 8080
   
     # Provisão usando um shell script
     config.vm.provision "shell", inline: <<-SHELL
-    #da update nos repositorios e baixa o apache para ser servidor
-    apt  update
-    apt  install -y apache2
-    #define a rota padrão que a vm2 deve correr para comunicar com a vm3
-    sudo ip route add default via 192.168.56.12
+   # ip route del default
+   #ip route add default via "192.168.56.12"
+      apt install net-tools
+
+
+
+     # ip a add 192.168.56.10/24 dev enp0s3
+     # ifconfig enp0s3 192.168.56.10/24
+      #route add default gw 192.168.56.12
+      #echo "nameserver 8.8.8.8" >> /etc/resolv.conf 	
+      apt  update
+      apt  install -y apache2
     SHELL
   end

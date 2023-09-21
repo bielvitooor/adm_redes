@@ -6,22 +6,30 @@ Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/focal64"
     # Especifica o provedor (VirtualBox neste exemplo)
     config.vm.provider "virtualbox" do |vb|
-      vb.name=" VM02"
-      #vb.memory = 2048
-      #vb.cpus = 2
+      vb.name=" VM01"
+     # vb.memory = 2048
+     # vb.cpus = 2
     end
   
     # Configura uma rede privada usando fixo
-    config.vm.network "private_network", ip: "192.168.56.11"
+    config.vm.network "private_network", ip: "192.168.56.10"
+  
+    # Configura uma pasta sincronizada
+    config.vm.synced_folder "./shared_folder", "/var/www/html"
     # Configura um redirecionamento de porta
     config.vm.network "forwarded_port", guest: 80, host: 8080
   
     # Provisão usando um shell script
     config.vm.provision "shell", inline: <<-SHELL
-    # da update nos repositorios e instala o mysql
+   # ip route del default
+   #ip route add default via "192.168.56.12"
+      apt install net-tools
+      
+ip a add 192.168.1.101/24 dev eth0
+      ifconfig enp0s3 192.168.56.10/24
+      route add default gw 192.168.56.12
+      echo "nameserver 8.8.8.8" >> /etc/resolv.conf 	
       apt-get update
-      apt-get install mysql-server -y
-      #configura a rota padrão que deve ser seguida pra comunicar com o gatway
-      sudo ip route add default via 192.168.56.12
+      apt-get install -y apache2
     SHELL
   end
