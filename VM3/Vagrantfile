@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     # Configura uma rede privada usando fixo
     config.vm.network "private_network", ip: "192.168.56.12",auto_config:false;
     #configuta uma rede de ip publico DHCP
-    config.vm.network "public_network", type: "dhcp"
+    config.vm.network "public_network", type: "dhcp", bridge: "enp2s0"
     # Configura um redirecionamento de porta
 
     config.vm.network "forwarded_port",guest: 80, host: 8088
