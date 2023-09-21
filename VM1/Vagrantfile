@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/focal64"
     # Especifica o provedor (VirtualBox neste exemplo)
     config.vm.provider "virtualbox" do |vb|
-      vb.name="V1"
+      vb.name="VM1"
      # vb.memory = 2048
      # vb.cpus = 2
     end
